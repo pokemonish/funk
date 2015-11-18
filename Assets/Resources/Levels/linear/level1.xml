@@ -1,0 +1,1 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><Ball><x>1</x><y>1</y><image>1</image></Ball><Basket><x>1</x><y>1</y><angle>1</angle></Basket><TriangleObsticle><x>1</x><y>1</y><angle>1</angle></TriangleObsticle></Level>

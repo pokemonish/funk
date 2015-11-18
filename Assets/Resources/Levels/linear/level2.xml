@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Level><Ball><x>0.5</x><y>0.5</y><image>1</image></Ball><Basket><x>-1</x><y>-1</y><angle>5</angle></Basket><TriangleObsticle><x>1</x><y>1</y><angle>1</angle></TriangleObsticle></Level>
