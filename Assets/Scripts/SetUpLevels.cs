@@ -21,7 +21,7 @@ public class SetUpLevels : MonoBehaviour {
     void OnGUI()
     {
 
-        //ScenesParameters.LevelsNumber = 1;
+        ScenesParameters.Devmode = false;
 
         content.image = btnTexture;
 
@@ -31,7 +31,8 @@ public class SetUpLevels : MonoBehaviour {
         {
             content.text = "" + i;
             if (GUI.Button(new Rect(Screen.width * 0.25f - buttonSize.x / 2 + Screen.width / 2 * (1 - i % 2),
-                Screen.width * 0.25f - buttonSize.x / 2 + buttonSize.y * 1.2f * (float)Math.Round((double)(i - 1) / 2), buttonSize.x, buttonSize.y), content)) {
+                Screen.width * 0.25f - buttonSize.x / 2 + buttonSize.y * 1.2f * 
+                (float)Math.Ceiling((double)i / 2 - 1), buttonSize.x, buttonSize.y), content)) {
                 ScenesParameters.CurrentLevel = i;
                 Application.LoadLevel(3);
             }

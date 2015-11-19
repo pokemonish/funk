@@ -41,28 +41,8 @@ public class SectionsMenuSetUp : MonoBehaviour {
 
                 TextAsset text = Resources.Load(ScenesParameters.LevelsDirectory + '/'
                                 + ScenesParameters.Section + '/' + "config") as TextAsset;
-                Debug.Log(text);
-                Debug.Log(ScenesParameters.LevelsDirectory + '/'
-                                + ScenesParameters.Section + '/' + "config");
 
                 ScenesParameters.LevelsNumber = Int32.Parse(text.text);
-                /*var configPass = Path.Combine(Directory.GetCurrentDirectory(),
-                                            ScenesParameters.LevelsDirectory + Path.DirectorySeparatorChar
-                                            + ScenesParameters.Section +
-                                            Path.DirectorySeparatorChar + "config");
-
-                System.IO.StreamReader file =
-                    new System.IO.StreamReader(configPass);
-
-                string line;
-
-                while ((line = file.ReadLine()) != null)
-                {
-                    Debug.Log(line);
-                    ScenesParameters.LevelsNumber = Int32.Parse(line);
-                }
-
-                file.Close();*/
 
                 Application.LoadLevel(2);
             }

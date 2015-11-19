@@ -13,7 +13,7 @@ public class BasketConstructor : MonoBehaviour {
     private const float standartWallThickness = 0.15f;
     private const double sidesAngle = 0.262;
 
-    private const float basketScale = 0.3f;
+    private const float basketScale = 0.15f;
 
     // Use this for initialization
     void Start () {
@@ -29,7 +29,6 @@ public class BasketConstructor : MonoBehaviour {
         var bottomCollider = (BoxCollider2D)bottom.GetComponent<BoxCollider2D>();
         bottomCollider.size = new Vector2(backetSize.x * 0.7f, standartWallThickness);
         bottomCollider.offset = new Vector2(0f, (backetSize.y / 2 - standartWallThickness) *-1);
-        Debug.Log(bottomCollider.size.x);
 
         var leftCollider = (BoxCollider2D)leftWall.GetComponent<BoxCollider2D>();
         var rightCollider = (BoxCollider2D)rightWall.GetComponent<BoxCollider2D>();
@@ -42,8 +41,8 @@ public class BasketConstructor : MonoBehaviour {
         leftCollider.offset = new Vector2(-halfMiddleLine, standartWallThickness);
         rightCollider.offset = new Vector2(halfMiddleLine, standartWallThickness);
 
-        leftWall.transform.rotation = Quaternion.Euler(0f, 0f, (float)(sidesAngle / 2 / Math.PI * 180));
-        rightWall.transform.rotation = Quaternion.Euler(0f, 0f, -(float)(sidesAngle / 2 / Math.PI * 180));
+        leftWall.transform.Rotate(new Vector3(0f, 0f, (float)(sidesAngle / 2 / Math.PI * 180)));
+        rightWall.transform.Rotate(new Vector3(0f, 0f, -(float)(sidesAngle / 2 / Math.PI * 180)));
     }
 
 	// Update is called once per frame

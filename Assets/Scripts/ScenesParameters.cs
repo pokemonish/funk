@@ -3,6 +3,19 @@ using System.Collections;
 
 public static class ScenesParameters {
 
+    private static bool devMode = true;
+    public static bool Devmode
+    {
+        get
+        {
+            return devMode;
+        }
+        set
+        {
+            devMode = value;
+        }
+    }
+
     private static string levelName = "level";
     public static string LevelName
     {

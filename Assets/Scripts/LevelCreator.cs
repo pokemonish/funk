@@ -12,7 +12,7 @@ public class LevelCreator : MonoBehaviour {
     public float xDef;
     public float yDef;
 
-    public GameObject Completed;
+    public GameObject devInterface;
 
     private GameObject ballClone;
     private GameObject basketClone;
@@ -22,29 +22,19 @@ public class LevelCreator : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-
-        //ScenesParameters.CurrentLevel = 1;
-        //ScenesParameters.Section = "linear";
-
-        var configPass = Path.Combine(Directory.GetCurrentDirectory(),
-                                    ScenesParameters.LevelsDirectory + '/'
-                                    + ScenesParameters.Section +
-                                    '/' + "config");
-
-        /*System.IO.StreamReader file =
-            new System.IO.StreamReader(configPass);
-
-        string line;
-
-        while ((line = file.ReadLine()) != null)
+        if (!ScenesParameters.Devmode)
         {
-            Debug.Log(line);
-            ScenesParameters.LevelsNumber = Int32.Parse(line);
+            createLevelFromXml(ScenesParameters.LevelName + ScenesParameters.CurrentLevel);
+        } else
+        {
+            devInterface = Instantiate(devInterface);
+            devInterface.SetActive(true);
+            ScenesParameters.Section = "linear";
+            TextAsset text = Resources.Load(ScenesParameters.LevelsDirectory + '/'
+                                + ScenesParameters.Section + '/' + "config") as TextAsset;
+
+            ScenesParameters.LevelsNumber = Int32.Parse(text.text);
         }
-
-        file.Close();*/
-
-        createLevelFromXml(ScenesParameters.LevelName + ScenesParameters.CurrentLevel);
     }
 
     private void createLevelFromXml(string filename)
@@ -53,22 +43,34 @@ public class LevelCreator : MonoBehaviour {
 
         var level = (Level)parser.parse(filename);
 
+        Debug.Log(Screen.width);
+        Debug.Log(Screen.height);
+
         if (level.ball != null)
         {
-            ballClone = (GameObject)Instantiate(MyBall, new Vector3(level.ball.x, level.ball.y, 0f), Quaternion.Euler(0, 0, 0));
-            xDef = level.ball.x;
-            yDef = level.ball.y;
+            var ballPosition = new Vector3(level.ball.x,
+                                                   level.ball.y, 0f);
+            Debug.Log(ballPosition);
+            ballClone = (GameObject)Instantiate(MyBall, ballPosition, Quaternion.Euler(0, 0, 0));
+            xDef = ballPosition.x;
+            yDef = ballPosition.y;
         }
 
         if (level.basket != null)
         {
-            var basketPosition = new Vector3(level.basket.x, level.basket.x, 0f);
-            basketClone = (GameObject)Instantiate(MyBasket, basketPosition, Quaternion.AngleAxis(level.basket.angle, Vector3.forward));
+            var basketPosition = new Vector3(level.basket.x, level.basket.y, 0f);
+            Debug.Log(basketPosition);
+            basketClone = (GameObject)Instantiate(MyBasket, basketPosition, 
+                        Quaternion.AngleAxis(level.basket.angle, Vector3.forward));
         }
 
         if (level.ObsticleTriangle != null)
         {
-            MyTriangle.transform.position = new Vector2(level.ObsticleTriangle.x, level.ObsticleTriangle.y);
+            var brickPosition = 
+                new Vector2(level.ObsticleTriangle.x, level.ObsticleTriangle.y);
+
+            triangleClone = (GameObject)Instantiate(MyTriangle, brickPosition,
+                            Quaternion.AngleAxis(level.ObsticleTriangle.angle, Vector3.forward));
         }
     }
 

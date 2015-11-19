@@ -8,6 +8,26 @@ public class Level {
     
     public Level() {}
 
+    public Level(GameObject _ball, GameObject _basket, GameObject _obsticle)
+    {
+        Debug.Log(Screen.width);
+        Debug.Log(Screen.height);
+
+        ball = new Ball(_ball.transform.position.x,
+                        _ball.transform.position.y, null);
+
+        basket = new Basket(_basket.transform.position.x,
+                            _basket.transform.position.y, 
+                            _basket.transform.eulerAngles.z);
+
+        if (_obsticle != null)
+        {
+            ObsticleTriangle = new ObsticleTriangle(_obsticle.transform.position.x,
+                                _obsticle.transform.position.y,
+                                _obsticle.transform.eulerAngles.z);
+        }
+    }
+
     public Level(Ball _ball, Basket _basket, ObsticleTriangle _ObsticleTriangle) {
         ball = _ball;
         basket = _basket;
