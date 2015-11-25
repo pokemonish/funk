@@ -4,7 +4,8 @@ using ExpressionParser;
 using System.Collections.Generic;
 using System;
 
-public class DrawGraph : MonoBehaviour {
+public class DrawGraph : MonoBehaviour
+{
 
     private GameObject inputFieldGo;
     private GameObject setUp;
@@ -17,12 +18,14 @@ public class DrawGraph : MonoBehaviour {
     private Camera cam;
     private float minSide, from, to, step, standartLineThickness;
     private Transform DotPrefab;
-    
+
     List<BoxCollider2D> graphDots = new List<BoxCollider2D>();
+    List<LineRenderer> lines = new List<LineRenderer>();
 
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         inputFieldGo = GameObject.Find("InputField");
         inputFieldCo = inputFieldGo.GetComponent<InputField>();
 
@@ -38,25 +41,38 @@ public class DrawGraph : MonoBehaviour {
         from = cam.ScreenToWorldPoint(new Vector3(0f, 0f, 0f)).x - step;
         to = cam.ScreenToWorldPoint(new Vector3(minSide / 2, 0f, 0f)).x + step;
     }
-	
-	// Update is called once per frame
-	void Update() {
 
-        BoxCollider2D colliderPrev = null;
+    private LineRenderer createLine()
+    {
+        LineRenderer line;
 
-        foreach (BoxCollider2D collider in graphDots)
-        {
-            if (colliderPrev != null)
-            {
-                Debug.DrawLine(colliderPrev.transform.position, collider.transform.position);
-            }
-            colliderPrev = collider;
-        }
+        line = new GameObject("Line").AddComponent<LineRenderer>();
+
+        line.SetVertexCount(2);
+
+        line.SetWidth(0.15f, 0.15f);
+
+        line.SetColors(new Color(255, 47, 11), new Color(255, 47, 11));
+
+        line.sortingOrder = 1000;
+
+        line.sortingLayerName = "UI";
+
+        line.useWorldSpace = true;
+
+        return line;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+         
     }
 
     private bool goodNumbers(params double[] nums)
     {
-        foreach(double n in nums) {
+        foreach (double n in nums)
+        {
             if (double.IsInfinity(n) || double.IsNaN(n))
                 return false;
         }
@@ -75,15 +91,14 @@ public class DrawGraph : MonoBehaviour {
         var diff = lastDotPosition - newDotPosition;
         float rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
         colliderKeeper.transform.rotation = Quaternion.Euler(0f, 0f, rot_z - 90);
-
-        Debug.DrawLine(lastDotPosition, newDotPosition);
+        
         BoxCollider2D bc = colliderKeeper.AddComponent<BoxCollider2D>();
         bc.size = new Vector2(standartLineThickness, Vector2.Distance(lastDotPosition, newDotPosition));
         graphDots.Add(bc);
     }
 
     private void BuildPlot(ExpressionDelegate fun)
-    {      
+    {
 
         foreach (BoxCollider2D dot in graphDots)
         {
@@ -102,7 +117,7 @@ public class DrawGraph : MonoBehaviour {
             for (double x = -10 + step; x < 10; x += step)
             {
                 double ty = fun(x) / 20 * w;
-                double tx = from + sw  + x * w / 20;
+                double tx = from + sw + x * w / 20;
                 if (goodNumbers(tx, ty, xPrev, yPrev))
                     buildSegment(tx, ty, xPrev, yPrev);
                 xPrev = tx;
@@ -118,7 +133,35 @@ public class DrawGraph : MonoBehaviour {
                     buildSegment(tx, 0, xPrev, 0);
                 xPrev = tx;
             }
-        }       
+        }
+
+        drawLines();
+    }
+
+    private void drawLines()
+    {
+        lines.Clear();
+
+        foreach (LineRenderer line in lines)
+        {
+            Destroy(line);
+        }
+
+        BoxCollider2D colliderPrev = null;
+
+        foreach (BoxCollider2D collider in graphDots)
+        {
+            if (colliderPrev != null)
+
+            {
+                var line = createLine();
+                line.SetPosition(0, new Vector3(colliderPrev.transform.position.x, colliderPrev.transform.position.y, 0f));
+                line.SetPosition(1, new Vector3(collider.transform.position.x, collider.transform.position.y, 0f));
+                lines.Add(line);
+                //Debug.DrawLine(colliderPrev.transform.position, collider.transform.position);
+            }
+            colliderPrev = collider;
+        }
     }
 
     public void GetText()
