@@ -52,6 +52,8 @@ public class DrawGraph : MonoBehaviour
 
         line.SetWidth(0.15f, 0.15f);
 
+        line.material = new Material(Shader.Find("Particles/Additive"));
+
         line.SetColors(new Color(255, 47, 11), new Color(255, 47, 11));
 
         line.sortingOrder = 1000;
