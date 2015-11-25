@@ -66,7 +66,7 @@ public class DrawGraph : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-         
+
     }
 
     private bool goodNumbers(params double[] nums)
@@ -91,7 +91,7 @@ public class DrawGraph : MonoBehaviour
         var diff = lastDotPosition - newDotPosition;
         float rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
         colliderKeeper.transform.rotation = Quaternion.Euler(0f, 0f, rot_z - 90);
-        
+
         BoxCollider2D bc = colliderKeeper.AddComponent<BoxCollider2D>();
         bc.size = new Vector2(standartLineThickness, Vector2.Distance(lastDotPosition, newDotPosition));
         graphDots.Add(bc);
@@ -140,25 +140,23 @@ public class DrawGraph : MonoBehaviour
 
     private void drawLines()
     {
-        lines.Clear();
-
         foreach (LineRenderer line in lines)
         {
             Destroy(line);
         }
+
+        lines.Clear();
 
         BoxCollider2D colliderPrev = null;
 
         foreach (BoxCollider2D collider in graphDots)
         {
             if (colliderPrev != null)
-
             {
                 var line = createLine();
                 line.SetPosition(0, new Vector3(colliderPrev.transform.position.x, colliderPrev.transform.position.y, 0f));
                 line.SetPosition(1, new Vector3(collider.transform.position.x, collider.transform.position.y, 0f));
                 lines.Add(line);
-                //Debug.DrawLine(colliderPrev.transform.position, collider.transform.position);
             }
             colliderPrev = collider;
         }

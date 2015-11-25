@@ -5,7 +5,9 @@ public class CollisionHandler : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        Debug.Log(col.gameObject.name);
+
+        Saver.levelComplete();
+
         CompletedScreen.getInstanse().SetActive(true);
     }
 }
