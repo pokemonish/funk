@@ -17,6 +17,7 @@ public class SectionsMenuSetUp : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        PlayerPrefs.DeleteAll();
         icons["linear"] = linearTexture;
         icons["power"] = powerTexture;
         icons["root"] = rootTexture;

@@ -7,6 +7,7 @@ public class SetUpLevels : MonoBehaviour {
     public GUISkin MainFunkButton;
     public Camera cam;
     public Texture btnTexture;
+    public Texture lockTexture;
     private GUIContent content = new GUIContent();
 
 	// Use this for initialization
@@ -30,16 +31,32 @@ public class SetUpLevels : MonoBehaviour {
         //content.image = btnTexture;
 
         var buttonSize = (new Vector3(Screen.width * 0.4f, Screen.width * 0.4f, 0f));
-        
-        for (int i = 1; i <= ScenesParameters.LevelsNumber; ++i)
+
+        int i = 1;
+        while (Saver.isLevelPlayable(i))
         {
+            var buttonPosisiton = new Vector2(Screen.width * 0.25f - buttonSize.x / 2 + Screen.width / 2 * (1 - i % 2),
+                                                Screen.width * 0.25f - buttonSize.x / 2 + buttonSize.y * 1.2f *
+                                                (float)Math.Ceiling((double)i / 2 - 1));
             content.text = "" + i;
-            if (GUI.Button(new Rect(Screen.width * 0.25f - buttonSize.x / 2 + Screen.width / 2 * (1 - i % 2),
-                Screen.width * 0.25f - buttonSize.x / 2 + buttonSize.y * 1.2f * 
-                (float)Math.Ceiling((double)i / 2 - 1), buttonSize.x, buttonSize.y), content)) {
+
+            var button = GUI.Button(new Rect(buttonPosisiton, buttonSize), content);
+            if (button)
+            {
                 ScenesParameters.CurrentLevel = i;
                 Application.LoadLevel(3);
             }
+
+            ++i;
+        }
+
+        for (int j = i; j <= ScenesParameters.LevelsNumber; ++j)
+        {
+            var buttonPosisiton = new Vector2(Screen.width * 0.25f - buttonSize.x / 2 + Screen.width / 2 * (1 - i % 2),
+                                                Screen.width * 0.25f - buttonSize.x / 2 + buttonSize.y * 1.2f *
+                                                (float)Math.Ceiling((double)i / 2 - 1));
+
+            GUI.DrawTexture(new Rect(buttonPosisiton, buttonSize), lockTexture);
         }
     }
 }
