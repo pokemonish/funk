@@ -16,7 +16,7 @@ public class LevelCreator : MonoBehaviour {
 
     private GameObject ballClone;
     private GameObject basketClone;
-    private GameObject triangleClone;
+    private GameObject brickClone;
 
     private int levelsNumber;
 
@@ -43,15 +43,22 @@ public class LevelCreator : MonoBehaviour {
 
         var level = (Level)parser.parse(filename);
 
-        Debug.Log(Screen.width);
-        Debug.Log(Screen.height);
-
         if (level.ball != null)
         {
-            var ballPosition = new Vector3(level.ball.x,
-                                                   level.ball.y, 0f);
-            Debug.Log(ballPosition);
+            var ballPosition = new Vector3(level.ball.x, level.ball.y, 0f);
+            
             ballClone = (GameObject)Instantiate(MyBall, ballPosition, Quaternion.Euler(0, 0, 0));
+
+            Debug.Log("Localscale is " + ballClone.transform.localScale);
+
+            ballClone.transform.localScale = new Vector3(level.ball.scale, level.ball.scale, 1f);
+
+            Debug.Log("Scalelele " + ballClone.GetComponent<Transform>().localScale);
+            Debug.Log("scale is " + level.ball.scale);
+            Debug.Log("Localscale is " + ballClone.transform.localScale);
+            Debug.Log("Lossyscale is " + ballClone.transform.lossyScale);
+
+
             xDef = ballPosition.x;
             yDef = ballPosition.y;
         }
@@ -59,18 +66,22 @@ public class LevelCreator : MonoBehaviour {
         if (level.basket != null)
         {
             var basketPosition = new Vector3(level.basket.x, level.basket.y, 0f);
-            Debug.Log(basketPosition);
+            
             basketClone = (GameObject)Instantiate(MyBasket, basketPosition, 
                         Quaternion.AngleAxis(level.basket.angle, Vector3.forward));
+
+            basketClone.transform.localScale = new Vector3(level.basket.scale, level.basket.scale, 1f);
         }
 
-        if (level.ObsticleTriangle != null)
+        if (level.ObsticleBrick != null)
         {
             var brickPosition = 
-                new Vector2(level.ObsticleTriangle.x, level.ObsticleTriangle.y);
+                new Vector2(level.ObsticleBrick.x, level.ObsticleBrick.y);
 
-            triangleClone = (GameObject)Instantiate(MyTriangle, brickPosition,
-                            Quaternion.AngleAxis(level.ObsticleTriangle.angle, Vector3.forward));
+            brickClone = (GameObject)Instantiate(MyTriangle, brickPosition,
+                            Quaternion.AngleAxis(level.ObsticleBrick.angle, Vector3.forward));
+
+            brickClone.transform.localScale = new Vector3(level.ObsticleBrick.scale, level.ObsticleBrick.scale, 1f);
         }
     }
 

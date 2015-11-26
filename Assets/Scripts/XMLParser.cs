@@ -75,15 +75,4 @@ public class XMLParser {
             Debug.Log("Ball and Basket are required");
         }
     }
-
-    public void makeLevelTest()
-    {
-        var ball = new Ball(1, 1, "1");
-        var basket = new Basket(1, 1, 1);
-        var obs = new ObsticleTriangle(1, 1, 1);
-
-        Level level = new Level(ball, basket, obs);
-
-        makeLevel(level);
-    }
 }

@@ -13,16 +13,10 @@ public class BasketConstructor : MonoBehaviour {
     private const float standartWallThickness = 0.15f;
     private const double sidesAngle = 0.262;
 
-    private const float basketScale = 0.15f;
-
     // Use this for initialization
     void Start () {
         var renderer = (SpriteRenderer)gameObject.GetComponent<SpriteRenderer>();
-
-        var currentScale = renderer.bounds.size.x / cam.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height)).x;
-
-        renderer.transform.localScale = new Vector2(basketScale / currentScale, basketScale / currentScale);
-
+ 
         var backetSize = new Vector2 (renderer.sprite.bounds.size.x, 
                                         renderer.sprite.bounds.size.y);
         

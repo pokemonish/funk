@@ -10,28 +10,31 @@ public class Level {
 
     public Level(GameObject _ball, GameObject _basket, GameObject _obsticle)
     {
-        Debug.Log(Screen.width);
-        Debug.Log(Screen.height);
+        Debug.Log("Scale is " + _ball.transform.localScale.x);
 
         ball = new Ball(_ball.transform.position.x,
-                        _ball.transform.position.y, null);
+                        _ball.transform.position.y,
+                        _ball.transform.localScale.x,
+                        null);
 
         basket = new Basket(_basket.transform.position.x,
-                            _basket.transform.position.y, 
+                            _basket.transform.position.y,
+                            _basket.transform.localScale.x,
                             _basket.transform.eulerAngles.z);
 
         if (_obsticle != null)
         {
-            ObsticleTriangle = new ObsticleTriangle(_obsticle.transform.position.x,
-                                _obsticle.transform.position.y,
-                                _obsticle.transform.eulerAngles.z);
+            ObsticleBrick = new ObsticleBrick(_obsticle.transform.position.x,
+                                                _obsticle.transform.position.y,
+                                                _obsticle.transform.localScale.x,
+                                                _obsticle.transform.eulerAngles.z);
         }
     }
 
-    public Level(Ball _ball, Basket _basket, ObsticleTriangle _ObsticleTriangle) {
+    public Level(Ball _ball, Basket _basket, ObsticleBrick _ObsticleTriangle) {
         ball = _ball;
         basket = _basket;
-        ObsticleTriangle = _ObsticleTriangle;
+        ObsticleBrick = _ObsticleTriangle;
     }
 
     [XmlElement("Ball")]
@@ -41,7 +44,7 @@ public class Level {
     public Basket basket { get; set; }
 
     [XmlElement("TriangleObsticle")]
-    public ObsticleTriangle ObsticleTriangle { get; set; }
+    public ObsticleBrick ObsticleBrick { get; set; }
 
     public IEnumerator GetEnumerator()
     {
@@ -54,26 +57,29 @@ public class BasicLevelItem
 {
     public BasicLevelItem() {}
 
-    public BasicLevelItem(float _x, float _y)
+    public BasicLevelItem(float x, float y, float scale)
     {
-        x = _x;
-        y = _y;
+        this.x = x;
+        this.y = y;
+        this.scale = scale;
     }
 
     
     public float x { get; set; }
     
     public float y { get; set; }
+
+    public float scale { get; set; }
 }
 
 public class LevelItemWithAngle : BasicLevelItem
 {
     public LevelItemWithAngle() {}
 
-    public LevelItemWithAngle(float _x, float _y, float _angle) :
-        base(_x, _y)
+    public LevelItemWithAngle(float x, float y, float scale, float angle) :
+        base(x, y, scale)
     {
-        angle = _angle;
+        this.angle = angle;
     }
 
     
@@ -84,15 +90,15 @@ public class Basket : LevelItemWithAngle
 {
     Basket() {}
 
-    public Basket(float _x, float _y, float _angle) :
-        base(_x, _y, _angle) { }
+    public Basket(float x, float y, float scale, float angle) :
+        base(x, y, scale, angle) { }
 }
 
 public class Ball : BasicLevelItem
 {
     public Ball() {}
 
-    public Ball(float _x, float _y, string _image) : base(_x, _y) {
+    public Ball(float x, float y, float scale, string _image) : base(x, y, scale) {
         image = _image;
     }
 
@@ -100,10 +106,10 @@ public class Ball : BasicLevelItem
     public string image { get; set; }
 }
 
-public class ObsticleTriangle : LevelItemWithAngle
+public class ObsticleBrick : LevelItemWithAngle
 {
-    public ObsticleTriangle() {}
+    public ObsticleBrick() {}
 
-    public ObsticleTriangle(float _x, float _y, float _angle) :
-        base(_x, _y, _angle) { }
+    public ObsticleBrick(float x, float y, float scale, float angle) :
+        base(x, y, scale, angle) { }
 }

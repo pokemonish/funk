@@ -48,19 +48,16 @@ public class DrawGraph : MonoBehaviour
 
         line = new GameObject("Line").AddComponent<LineRenderer>();
 
-        line.SetVertexCount(2);
-
         line.SetWidth(0.15f, 0.15f);
 
         line.material = new Material(Shader.Find("Particles/Additive"));
 
-        line.SetColors(new Color(255, 47, 11), new Color(255, 47, 11));
+        line.material.SetColor("_Color", new Color(0.8824f, 0.1843f, 0.0413f));
 
-        line.sortingOrder = 1000;
+        line.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+        line.SetColors(new Color(0.8824f, 0.1843f, 0.0413f), new Color(0.8824f, 0.1843f, 0.0413f));
 
-        line.sortingLayerName = "UI";
-
-        line.useWorldSpace = true;
+        line.SetVertexCount(2);
 
         return line;
     }

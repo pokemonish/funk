@@ -11,7 +11,7 @@ public class BrikConstructor : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        var renderer = (SpriteRenderer)gameObject.GetComponent<SpriteRenderer>();
+        /*var renderer = (SpriteRenderer)gameObject.GetComponent<SpriteRenderer>();
 
         var currentScale = renderer.bounds.size.x / 
                             cam.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height)).x;
@@ -22,7 +22,7 @@ public class BrikConstructor : MonoBehaviour {
         var brickSize = new Vector2(renderer.sprite.bounds.size.x,
                                     renderer.sprite.bounds.size.y);
 
-        brick.size = brickSize;
+        brick.size = brickSize;*/
     }
 	
 	// Update is called once per frame
