@@ -6,7 +6,7 @@ using System;
 
 public class DrawGraph : MonoBehaviour
 {
-
+    public Material material;
     private GameObject inputFieldGo;
     private GameObject setUp;
     private InputField inputFieldCo;
@@ -50,7 +50,11 @@ public class DrawGraph : MonoBehaviour
 
         line.SetWidth(0.15f, 0.15f);
 
-        line.material = new Material(Shader.Find("Particles/Additive"));
+        try {
+            line.material = this.material;
+        } catch(Exception i) {
+            ;
+        }
 
         line.material.SetColor("_Color", new Color(0.8824f, 0.1843f, 0.0413f));
 
@@ -163,21 +167,24 @@ public class DrawGraph : MonoBehaviour
 
     public void GetText()
     {
-        try
-        {
-            Expression exp = parser.EvaluateExpression(inputFieldCo.text);
-            ExpressionDelegate fun = exp.ToDelegate("x");
-            BuildPlot(fun);
-        }
-        catch (KeyNotFoundException e)
-        {
-            Expression exp = parser.EvaluateExpression(inputFieldCo.text);
-            ExpressionDelegate fun = exp.ToDelegate();
-            BuildPlot(fun);
-        }
-        catch (ExpressionParser.ExpressionParser.ParseException ex)
-        {
-            BuildPlot(null);
+
+        if (ScenesParameters.isValid) {
+            try
+            {
+                Expression exp = parser.EvaluateExpression(inputFieldCo.text);
+                ExpressionDelegate fun = exp.ToDelegate("x");
+                BuildPlot(fun);
+            }
+            catch (KeyNotFoundException e)
+            {
+                Expression exp = parser.EvaluateExpression(inputFieldCo.text);
+                ExpressionDelegate fun = exp.ToDelegate();
+                BuildPlot(fun);
+            }
+            catch (ExpressionParser.ExpressionParser.ParseException ex)
+            {
+                BuildPlot(null);
+            }
         }
     }
 }

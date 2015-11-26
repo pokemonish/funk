@@ -2,12 +2,14 @@
 using System.Collections;
 using System.IO;
 using System;
+using UnityEngine.UI;
 
 public class LevelCreator : MonoBehaviour {
 
     public GameObject MyBall;
     public GameObject MyBasket;
     public GameObject MyTriangle;
+    public GameObject ErrorText;
 
     public float xDef;
     public float yDef;
@@ -17,6 +19,7 @@ public class LevelCreator : MonoBehaviour {
     private GameObject ballClone;
     private GameObject basketClone;
     private GameObject brickClone;
+    private string funk;
 
     private int levelsNumber;
 
@@ -83,13 +86,62 @@ public class LevelCreator : MonoBehaviour {
 
             brickClone.transform.localScale = new Vector3(level.ObsticleBrick.scale, level.ObsticleBrick.scale, 1f);
         }
+
+        funk = level.Funk;
+
+        var inputFieldGo = GameObject.Find("InputField");
+        var inputFieldCo = inputFieldGo.GetComponent<InputField>();
+
+        //inputFieldCo.keyboardType = TouchScreenKeyboardType.NumbersAndPunctuation;
+        //inputFieldCo.text = "<color = red>" + level.Funk + "</color>";
+
+        //inputFieldCo.text = "<size=30><color=red>" + level.Funk + "</color></size>";
+
+        inputFieldCo.text = level.Funk;
+
+        inputFieldCo.onValueChange.AddListener(delegate { ValueChangeCheck(); });
+
+        ScenesParameters.isValid = true;
     }
 
-    public void setPosition()
+    public void resetField()
     {
-        ballClone.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
-        ballClone.GetComponent<Rigidbody2D>().angularVelocity = 0;
-        ballClone.GetComponent<Transform>().position = new Vector3(xDef, yDef, 0f);
+        var inputFieldGo = GameObject.Find("InputField");
+        var inputFieldCo = inputFieldGo.GetComponent<InputField>();
+
+        //inputFieldCo.text = "<color = red>" + level.Funk + "</color>";
+
+        //inputFieldCo.text = "<size=30><color=red>" + level.Funk + "</color></size>";
+
+        inputFieldCo.text = funk;
+
+    }
+
+    public void ValueChangeCheck()
+    {
+        var inputFieldGo = GameObject.Find("InputField");
+        var inputFieldCo = inputFieldGo.GetComponent<InputField>();
+
+        int index = inputFieldCo.text.IndexOf(funk);
+
+        if (index == -1)
+        {
+            ScenesParameters.isValid = false;
+            ErrorText.SetActive(true);
+        } else
+        {
+            ScenesParameters.isValid = true;
+            ErrorText.SetActive(false);
+        }
+    }
+
+public void setPosition()
+    {
+        if (ScenesParameters.isValid) {
+            ballClone.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+            ballClone.GetComponent<Rigidbody2D>().angularVelocity = 0;
+            ballClone.GetComponent<Transform>().position = new Vector3(xDef, yDef, 0f);
+        }
     }
 
     // Update is called once per frame

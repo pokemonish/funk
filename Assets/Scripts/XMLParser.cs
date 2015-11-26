@@ -2,6 +2,7 @@
 using System.Xml;
 using System.IO;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class XMLParser {
 
@@ -48,12 +49,15 @@ public class XMLParser {
 
         var triangleObsticles = GameObject.FindGameObjectsWithTag("TriangleObsticle");
 
-        
+        GameObject inputFieldGo = GameObject.Find("RequiredInputField");
+        var inputFieldCo = inputFieldGo.GetComponent<InputField>();
+        Debug.Log(inputFieldCo);
+
         if (balls.Length > 0 && baskets.Length > 0)
         {
             ++ScenesParameters.LevelsNumber;
             var triangleObsticle = triangleObsticles.Length > 0 ? triangleObsticles[0] : null;
-            Level level = new Level(balls[0], baskets[0], triangleObsticle);
+            Level level = new Level(balls[0], baskets[0], triangleObsticle, inputFieldCo.text);
             makeLevel(level);
 
             var configPass = Path.Combine(Directory.GetCurrentDirectory(),

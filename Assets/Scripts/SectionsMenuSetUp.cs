@@ -14,12 +14,16 @@ public class SectionsMenuSetUp : MonoBehaviour {
     public Texture rootTexture;
 
     private Dictionary<string, Texture> icons = new Dictionary<string, Texture>();
+    private Dictionary<string, string> functions = new Dictionary<string, string>();
 
     // Use this for initialization
     void Start () {
         icons["linear"] = linearTexture;
         icons["power"] = powerTexture;
         icons["root"] = rootTexture;
+
+        functions["linear"] = "x";
+        functions["power"] = "x^";
     }
 	
 	// Update is called once per frame

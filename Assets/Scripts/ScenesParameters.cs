@@ -3,6 +3,8 @@ using System.Collections;
 
 public static class ScenesParameters {
 
+    public static bool isValid { get; set; }
+
     private static bool devMode = true;
     public static bool Devmode
     {
