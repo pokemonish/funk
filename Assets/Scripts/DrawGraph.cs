@@ -48,7 +48,7 @@ public class DrawGraph : MonoBehaviour
 
         line = new GameObject("Line").AddComponent<LineRenderer>();
 
-        line.SetWidth(0.15f, 0.15f);
+        line.SetWidth(0.05f, 0.05f);
 
         try {
             line.material = this.material;
@@ -121,7 +121,7 @@ public class DrawGraph : MonoBehaviour
             {
                 double ty = fun(x) / 20 * w;
                 double tx = from + sw + x * w / 20;
-                if (goodNumbers(tx, ty, xPrev, yPrev))
+                if (Math.Abs(ty) < w / 2 && Math.Abs(yPrev) < w / 2 && goodNumbers(tx, ty, xPrev, yPrev))
                     buildSegment(tx, ty, xPrev, yPrev);
                 xPrev = tx;
                 yPrev = ty;

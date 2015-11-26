@@ -30,7 +30,7 @@ public class SetUpLevels : MonoBehaviour {
         var lockSize = new Vector2(buttonSize.x * 0.6f, buttonSize.y * 0.6f);
 
         int i = 1;
-        while (Saver.isLevelPlayable(i))
+        while (Saver.isLevelPlayable(i) && i <= ScenesParameters.LevelsNumber)
         {
             var buttonPosisiton = new Vector2(Screen.width * 0.25f - buttonSize.x / 2 + Screen.width / 2 * (1 - i % 2),
                                                 Screen.width * 0.25f - buttonSize.x / 2 + buttonSize.y * 1.2f *
