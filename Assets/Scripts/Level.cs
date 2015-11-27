@@ -8,10 +8,8 @@ public class Level {
     
     public Level() {}
 
-    public Level(GameObject _ball, GameObject _basket, GameObject _obsticle, string funk)
+    public Level(GameObject _ball, GameObject _basket, GameObject _obsticle, string funk, string defFunk)
     {
-        Debug.Log("Scale is " + _ball.transform.localScale.x);
-
         ball = new Ball(_ball.transform.position.x,
                         _ball.transform.position.y,
                         _ball.transform.localScale.x,
@@ -31,17 +29,22 @@ public class Level {
         }
 
         this.Funk = funk;
+        this.DefaultFunk = defFunk;
     }
 
-    public Level(Ball ball, Basket basket, ObsticleBrick ObsticleTriangle, string funk) {
+    public Level(Ball ball, Basket basket, ObsticleBrick ObsticleTriangle, string funk, string defFunk) {
         this.ball = ball;
         this.basket = basket;
         this.ObsticleBrick = ObsticleTriangle;
         this.Funk = funk;
+        this.DefaultFunk = defFunk;
     }
 
     [XmlElement("Funk")]
     public string Funk { get; set; }
+
+    [XmlElement("DefaultFunk")]
+    public string DefaultFunk { get; set; }
 
     [XmlElement("Ball")]
     public Ball ball { get; set; }

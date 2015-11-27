@@ -20,11 +20,15 @@ public class LevelCreator : MonoBehaviour {
     private GameObject basketClone;
     private GameObject brickClone;
     private string funk;
+    private string defaultFunk;
 
     private int levelsNumber;
 
     // Use this for initialization
     void Start () {
+
+        ScenesParameters.isValid = true;
+
         if (!ScenesParameters.Devmode)
         {
             createLevelFromXml(ScenesParameters.LevelName + ScenesParameters.CurrentLevel);
@@ -88,6 +92,7 @@ public class LevelCreator : MonoBehaviour {
         }
 
         funk = level.Funk;
+        defaultFunk = level.DefaultFunk;
 
         var inputFieldGo = GameObject.Find("InputField");
         var inputFieldCo = inputFieldGo.GetComponent<InputField>();
@@ -97,11 +102,9 @@ public class LevelCreator : MonoBehaviour {
 
         //inputFieldCo.text = "<size=30><color=red>" + level.Funk + "</color></size>";
 
-        inputFieldCo.text = level.Funk;
+        inputFieldCo.text = level.DefaultFunk;
 
         inputFieldCo.onValueChange.AddListener(delegate { ValueChangeCheck(); });
-
-        ScenesParameters.isValid = true;
     }
 
     public void resetField()
@@ -113,7 +116,7 @@ public class LevelCreator : MonoBehaviour {
 
         //inputFieldCo.text = "<size=30><color=red>" + level.Funk + "</color></size>";
 
-        inputFieldCo.text = funk;
+        inputFieldCo.text = defaultFunk;
 
     }
 
@@ -137,7 +140,7 @@ public class LevelCreator : MonoBehaviour {
 
 public void setPosition()
     {
-        if (ScenesParameters.isValid) {
+        if (ScenesParameters.isValid && ballClone != null) {
             ballClone.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
             ballClone.GetComponent<Rigidbody2D>().angularVelocity = 0;
             ballClone.GetComponent<Transform>().position = new Vector3(xDef, yDef, 0f);

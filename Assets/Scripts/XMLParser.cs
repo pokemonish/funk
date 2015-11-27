@@ -32,8 +32,6 @@ public class XMLParser {
                                             Path.DirectorySeparatorChar + ScenesParameters.LevelName 
                                             + ScenesParameters.LevelsNumber + ".xml");
 
-        Debug.Log(serializationFile);
-
         using (var writer = XmlWriter.Create(serializationFile))
         {
             serializer.Serialize(writer, level);
@@ -51,13 +49,27 @@ public class XMLParser {
 
         GameObject inputFieldGo = GameObject.Find("RequiredInputField");
         var inputFieldCo = inputFieldGo.GetComponent<InputField>();
-        Debug.Log(inputFieldCo);
+
+        GameObject inputFieldDefGo = GameObject.Find("DefaultInputField");
+        var inputFieldDefCo = inputFieldDefGo.GetComponent<InputField>();
+
+        if (inputFieldDefCo.text == null || inputFieldDefCo.text == "")
+        {
+            Debug.Log("Please, specify default function\n");
+            return;
+        }
+
+        if (inputFieldCo.text == null || inputFieldCo.text == "")
+        {
+            Debug.Log("Please, specify required function\n");
+            return;
+        }
 
         if (balls.Length > 0 && baskets.Length > 0)
         {
             ++ScenesParameters.LevelsNumber;
             var triangleObsticle = triangleObsticles.Length > 0 ? triangleObsticles[0] : null;
-            Level level = new Level(balls[0], baskets[0], triangleObsticle, inputFieldCo.text);
+            Level level = new Level(balls[0], baskets[0], triangleObsticle, inputFieldCo.text, inputFieldDefCo.text);
             makeLevel(level);
 
             var configPass = Path.Combine(Directory.GetCurrentDirectory(),
