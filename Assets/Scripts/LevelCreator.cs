@@ -105,6 +105,9 @@ public class LevelCreator : MonoBehaviour {
         inputFieldCo.text = level.DefaultFunk;
 
         inputFieldCo.onValueChange.AddListener(delegate { ValueChangeCheck(); });
+
+        var button = GameObject.Find("RunButton");
+        button.GetComponent<Button>().onClick.Invoke();
     }
 
     public void resetField()
