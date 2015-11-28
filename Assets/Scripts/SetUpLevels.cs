@@ -24,8 +24,6 @@ public class SetUpLevels : MonoBehaviour {
     {
         GUI.skin = MainFunkButton;
 
-        ScenesParameters.Devmode = false;
-
         var buttonSize = (new Vector2(Screen.width * 0.4f, Screen.width * 0.4f));
         var lockSize = new Vector2(buttonSize.x * 0.6f, buttonSize.y * 0.6f);
 

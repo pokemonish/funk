@@ -36,11 +36,10 @@ public class LevelCreator : MonoBehaviour {
         {
             devInterface = Instantiate(devInterface);
             devInterface.SetActive(true);
-            ScenesParameters.Section = "linear";
-            TextAsset text = Resources.Load(ScenesParameters.LevelsDirectory + '/'
-                                + ScenesParameters.Section + '/' + "config") as TextAsset;
-
-            ScenesParameters.LevelsNumber = Int32.Parse(text.text);
+            if (ScenesParameters.Section == null)
+            {
+                throw new Exception("Entering devmode through GameScreen is obsolete, use SectionsMenu Instead.");
+            }
         }
     }
 

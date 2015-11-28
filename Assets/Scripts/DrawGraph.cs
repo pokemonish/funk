@@ -48,13 +48,9 @@ public class DrawGraph : MonoBehaviour
 
         line = new GameObject("Line").AddComponent<LineRenderer>();
 
-        line.SetWidth(0.05f, 0.05f);
-
-        try {
-            line.material = this.material;
-        } catch(Exception i) {
-            ;
-        }
+        line.SetWidth(0.06f, 0.06f);
+       
+        line.material = this.material;
 
         line.material.SetColor("_Color", new Color(0.8824f, 0.1843f, 0.0413f));
 
@@ -90,18 +86,30 @@ public class DrawGraph : MonoBehaviour
         //Transform dot = (Transform)Instantiate(DotPrefab, newDotPosition, Quaternion.identity);
 
         var colliderKeeper = new GameObject("collider");
+
+        var line = createLine();
+
+        line.SetPosition(0, lastDotPosition);
+        line.SetPosition(1, newDotPosition);
+
+        lines.Add(line);
+
         colliderKeeper.transform.position = Vector2.Lerp(newDotPosition, lastDotPosition, 0.5f);
         var diff = lastDotPosition - newDotPosition;
         float rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
+
         colliderKeeper.transform.rotation = Quaternion.Euler(0f, 0f, rot_z - 90);
 
         BoxCollider2D bc = colliderKeeper.AddComponent<BoxCollider2D>();
         bc.size = new Vector2(standartLineThickness, Vector2.Distance(lastDotPosition, newDotPosition));
+
         graphDots.Add(bc);
     }
 
     private void BuildPlot(ExpressionDelegate fun)
     {
+
+        deleteLines();
 
         foreach (BoxCollider2D dot in graphDots)
         {
@@ -137,11 +145,9 @@ public class DrawGraph : MonoBehaviour
                 xPrev = tx;
             }
         }
-
-        drawLines();
     }
 
-    private void drawLines()
+    private void deleteLines()
     {
         foreach (LineRenderer line in lines)
         {
@@ -149,20 +155,6 @@ public class DrawGraph : MonoBehaviour
         }
 
         lines.Clear();
-
-        BoxCollider2D colliderPrev = null;
-
-        foreach (BoxCollider2D collider in graphDots)
-        {
-            if (colliderPrev != null)
-            {
-                var line = createLine();
-                line.SetPosition(0, new Vector3(colliderPrev.transform.position.x, colliderPrev.transform.position.y, 0f));
-                line.SetPosition(1, new Vector3(collider.transform.position.x, collider.transform.position.y, 0f));
-                lines.Add(line);
-            }
-            colliderPrev = collider;
-        }
     }
 
     public void GetText()

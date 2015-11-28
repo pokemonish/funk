@@ -47,8 +47,13 @@ public class SectionsMenuSetUp : MonoBehaviour {
                                 + ScenesParameters.Section + '/' + "config") as TextAsset;
 
                 ScenesParameters.LevelsNumber = Int32.Parse(text.text);
-
-                Application.LoadLevel(2);
+                if (!ScenesParameters.Devmode)
+                {
+                    Application.LoadLevel(2);
+                } else
+                {
+                    Application.LoadLevel(3);
+                }
             }
         }
     }

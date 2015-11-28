@@ -1,0 +1,1 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><Funk>x^3</Funk><DefaultFunk>x^3/2</DefaultFunk><Ball><x>-1.53</x><y>2.87</y><scale>0.7</scale></Ball><Basket><x>1.8</x><y>-0.68</y><scale>0.45</scale><angle>89.10393</angle></Basket></Level>
