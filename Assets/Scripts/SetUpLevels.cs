@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using UnityEngine.UI;
 
 public class SetUpLevels : MonoBehaviour {
 
@@ -8,17 +9,36 @@ public class SetUpLevels : MonoBehaviour {
     public Camera cam;
     public Texture btnTexture;
     public Texture lockTexture;
+    public float offset = 0;
+    
     private GUIContent content = new GUIContent();
+    private Scrollbar scrollBar;
 
 	// Use this for initialization
 	void Start () {
-        
+        var scrollbarGO = GameObject.Find("LevelScrollbar");
+        scrollBar = scrollbarGO.GetComponent<Scrollbar>();
+
+        float levelsHeight = (ScenesParameters.LevelsNumber / 2 + 2) * Screen.width * 0.25f;
+
+        if (levelsHeight < Screen.height)
+        {
+            GameObject.Find("UserUICanvas").SetActive(false);
+        } else
+        {
+            scrollBar.size = 0.33f/*Screen.height / levelsHeight*/;
+        }
     }
 	
 	// Update is called once per frame
 	void Update () {
 	
 	}
+
+    public void setScrollBarOffset()
+    {
+        offset = scrollBar.value * ScenesParameters.LevelsNumber / 2 * Screen.width * 0.25f;
+    }
 
     void OnGUI()
     {
@@ -30,9 +50,10 @@ public class SetUpLevels : MonoBehaviour {
         int i = 1;
         while (Saver.isLevelPlayable(i) && i <= ScenesParameters.LevelsNumber)
         {
-            var buttonPosisiton = new Vector2(Screen.width * 0.25f - buttonSize.x / 2 + Screen.width / 2 * (1 - i % 2),
-                                                Screen.width * 0.25f - buttonSize.x / 2 + buttonSize.y * 1.2f *
-                                                (float)Math.Ceiling((double)i / 2 - 1));
+            var buttonPosisiton = 
+                new Vector2(Screen.width * 0.25f - buttonSize.x / 2 + Screen.width / 2 * (1 - i % 2),
+                            Screen.width * 0.25f - buttonSize.x / 2 + buttonSize.y * 1.2f *
+                            (float)Math.Ceiling((double)i / 2 - 1) - offset);
             content.text = "" + i;
 
             var button = GUI.Button(new Rect(buttonPosisiton, buttonSize), content);
@@ -57,9 +78,10 @@ public class SetUpLevels : MonoBehaviour {
         for (int j = i; j <= ScenesParameters.LevelsNumber; ++j)
         {
 
-            var buttonPosisiton = new Vector2(Screen.width * 0.25f - lockSize.x / 2 + Screen.width / 2 * (1 - j % 2),
-                                                Screen.width * 0.25f - currentSize.x / 2 + currentSize.y * 1.2f *
-                                                (float)Math.Ceiling((double)j / 2 - 1));
+            var buttonPosisiton = 
+                new Vector2(Screen.width * 0.25f - lockSize.x / 2 + Screen.width / 2 * (1 - j % 2),
+                            Screen.width * 0.25f - currentSize.x / 2 + currentSize.y * 1.2f *
+                            (float)Math.Ceiling((double)j / 2 - 1) - offset);
 
             GUI.DrawTexture(new Rect(buttonPosisiton, lockSize), lockTexture);
             currentSize = buttonSize;

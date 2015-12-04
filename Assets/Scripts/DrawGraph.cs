@@ -65,7 +65,7 @@ public class DrawGraph : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+         
     }
 
     private bool goodNumbers(params double[] nums)
@@ -163,7 +163,8 @@ public class DrawGraph : MonoBehaviour
         if (ScenesParameters.isValid) {
             try
             {
-                Expression exp = parser.EvaluateExpression(inputFieldCo.text);
+                string rawExp = inputFieldCo.text.Replace("<color=red>", "").Replace("</color>", "");
+                Expression exp = parser.EvaluateExpression(rawExp);
                 ExpressionDelegate fun = exp.ToDelegate("x");
                 BuildPlot(fun);
             }

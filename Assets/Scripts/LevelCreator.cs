@@ -10,6 +10,7 @@ public class LevelCreator : MonoBehaviour {
     public GameObject MyBasket;
     public GameObject MyTriangle;
     public GameObject ErrorText;
+    public InputVerifyer inputVerifyer;
 
     public float xDef;
     public float yDef;
@@ -55,15 +56,7 @@ public class LevelCreator : MonoBehaviour {
             
             ballClone = (GameObject)Instantiate(MyBall, ballPosition, Quaternion.Euler(0, 0, 0));
 
-            Debug.Log("Localscale is " + ballClone.transform.localScale);
-
             ballClone.transform.localScale = new Vector3(level.ball.scale, level.ball.scale, 1f);
-
-            Debug.Log("Scalelele " + ballClone.GetComponent<Transform>().localScale);
-            Debug.Log("scale is " + level.ball.scale);
-            Debug.Log("Localscale is " + ballClone.transform.localScale);
-            Debug.Log("Lossyscale is " + ballClone.transform.lossyScale);
-
 
             xDef = ballPosition.x;
             yDef = ballPosition.y;
@@ -96,14 +89,26 @@ public class LevelCreator : MonoBehaviour {
         var inputFieldGo = GameObject.Find("InputField");
         var inputFieldCo = inputFieldGo.GetComponent<InputField>();
 
-        //inputFieldCo.keyboardType = TouchScreenKeyboardType.NumbersAndPunctuation;
-        //inputFieldCo.text = "<color = red>" + level.Funk + "</color>";
+    
+        string[] args = new string[1] { "<color=red>" + funk + "</color>" };
+
+        inputVerifyer.setReqiredFunctions(args);
+
+        inputFieldCo.keyboardType = TouchScreenKeyboardType.NumbersAndPunctuation;
+        //inputFieldCo.text = "<color=red>" + level.Funk + "</color>";
 
         //inputFieldCo.text = "<size=30><color=red>" + level.Funk + "</color></size>";
 
-        inputFieldCo.text = level.DefaultFunk;
+        //inputFieldCo.text = level.DefaultFunk;
 
-        inputFieldCo.onValueChange.AddListener(delegate { ValueChangeCheck(); });
+        var coloredText = level.DefaultFunk.Replace(funk, "<color=red>" + funk + "</color> ");
+        Debug.Log(coloredText);
+
+        inputVerifyer.setPrevInput(coloredText);
+
+        inputFieldCo.text = coloredText;
+
+        //inputFieldCo.onValueChange.AddListener(delegate { ValueChangeCheck(); });
 
         var button = GameObject.Find("RunButton");
         button.GetComponent<Button>().onClick.Invoke();

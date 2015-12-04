@@ -1,2 +1,1 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<Level><Funk>x</Funk><DefaultFunk>x / 2 + 1</DefaultFunk><Ball><x>-1.43</x><y>2.64</y><scale>0.7</scale></Ball><Basket><x>-1.37</x><y>-2.27</y><scale>0.45</scale><angle>0</angle></Basket></Level>
+﻿<?xml version="1.0" encoding="utf-8"?><Level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><Funk>2</Funk><DefaultFunk>-2</DefaultFunk><Ball><x>-2.02</x><y>0.06</y><scale>0.7</scale></Ball><Basket><x>-1.96</x><y>-1.6</y><scale>0.45</scale><angle>0</angle></Basket></Level>

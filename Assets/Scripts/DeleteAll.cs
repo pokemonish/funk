@@ -8,6 +8,7 @@ public class DeleteAll : MonoBehaviour {
         PlayerPrefs.DeleteAll();
 
         ScenesParameters.Devmode = false;
+        Screen.orientation = ScreenOrientation.Portrait;
     }
 	
 	// Update is called once per frame
