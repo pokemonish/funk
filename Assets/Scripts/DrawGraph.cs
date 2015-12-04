@@ -163,7 +163,7 @@ public class DrawGraph : MonoBehaviour
         if (ScenesParameters.isValid) {
             try
             {
-                string rawExp = inputFieldCo.text.Replace("<color=red>", "").Replace("</color>", "");
+                string rawExp = inputFieldCo.text.Replace("<color=#E12F0BFF>", "").Replace("</color>", "");
                 Expression exp = parser.EvaluateExpression(rawExp);
                 ExpressionDelegate fun = exp.ToDelegate("x");
                 BuildPlot(fun);

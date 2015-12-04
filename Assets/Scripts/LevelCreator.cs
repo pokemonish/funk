@@ -90,7 +90,7 @@ public class LevelCreator : MonoBehaviour {
         var inputFieldCo = inputFieldGo.GetComponent<InputField>();
 
     
-        string[] args = new string[1] { "<color=red>" + funk + "</color>" };
+        string[] args = new string[1] { "<color=#E12F0BFF>" + funk + "</color>" };
 
         inputVerifyer.setReqiredFunctions(args);
 
@@ -101,7 +101,7 @@ public class LevelCreator : MonoBehaviour {
 
         //inputFieldCo.text = level.DefaultFunk;
 
-        var coloredText = level.DefaultFunk.Replace(funk, "<color=red>" + funk + "</color> ");
+        var coloredText = level.DefaultFunk.Replace(funk, "<color=#E12F0BFF>" + funk + "</color> ");
         Debug.Log(coloredText);
 
         inputVerifyer.setPrevInput(coloredText);

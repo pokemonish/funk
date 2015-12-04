@@ -20,8 +20,9 @@ public class InputVerifyer : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(mainInput.caretPosition);
         correctCaretPosition(mainInput);
-        if (Mathf.Abs(mainInput.caretPosition - prevPos) > 2)
+        if (Mathf.Abs(mainInput.caretPosition - prevPos) > 1)
         {
             prevPos = mainInput.caretPosition;
         }
