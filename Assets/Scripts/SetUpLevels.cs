@@ -10,6 +10,7 @@ public class SetUpLevels : MonoBehaviour {
     public Texture btnTexture;
     public Texture lockTexture;
     public float offset = 0;
+    private Camera camera;
     
     private GUIContent content = new GUIContent();
     private Scrollbar scrollBar;
@@ -20,6 +21,9 @@ public class SetUpLevels : MonoBehaviour {
         scrollBar = scrollbarGO.GetComponent<Scrollbar>();
 
         float levelsHeight = (ScenesParameters.LevelsNumber / 2 + 2) * Screen.width * 0.25f;
+
+        var cameraGO = GameObject.Find("BottomCamera");
+        camera = cameraGO.GetComponent<Camera>();
 
         if (levelsHeight < Screen.height)
         {
@@ -86,5 +90,6 @@ public class SetUpLevels : MonoBehaviour {
             GUI.DrawTexture(new Rect(buttonPosisiton, lockSize), lockTexture);
             currentSize = buttonSize;
         }
+        camera.Render();
     }
 }
