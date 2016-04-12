@@ -1,11 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
+using System.Text.RegularExpressions;
 
 [System.Serializable]
 public class InputVerifyer : MonoBehaviour {
 
     private InputField mainInput;
+    private Button fakeInputFieldButton;
+    private Text fakeInputFieldButtonText;
     private string prevInput = null;
     private string[] requiredFunctions;
     private int prevPos = 0;
@@ -13,17 +17,30 @@ public class InputVerifyer : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
+        var fakeInputFieldButtonGO = GameObject.Find("FakeInputFieldButton");
+        fakeInputFieldButton = fakeInputFieldButtonGO.GetComponent<Button>();
+        fakeInputFieldButtonText = fakeInputFieldButton.GetComponentInChildren<Text>();
         var mainInputGO = GameObject.Find("InputField");
         mainInput = mainInputGO.GetComponent<InputField>();
+        fakeInputFieldButtonText.text = mainInput.text.Replace(requiredFunctions[0], "<color=#E12F0BFF>" + requiredFunctions[0] + "</color>");
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    
+   void Update()
+   {
+        /*
         Debug.Log(mainInput.caretPosition);
         correctCaretPosition(mainInput);
         
         prevPos = mainInput.caretPosition;
+        */
+    }
+
+    public void activeInputField()
+    {
+        EventSystem.current.SetSelectedGameObject(mainInput.gameObject, null);
+        mainInput.OnPointerClick(new PointerEventData(EventSystem.current));
     }
 
     private void correctCaretPosition(InputField input)
@@ -200,12 +217,35 @@ public class InputVerifyer : MonoBehaviour {
                 }
             }
 
+            string clearString = (string) text.Clone();
+
+            foreach (string function in requiredFunctions)
+            {
+                clearString = clearString.Replace(function, string.Empty);
+            }
+
+            clearString = Regex.Replace(clearString, @"[\d-]", string.Empty)
+                .Replace("+", string.Empty)
+                .Replace("-", string.Empty)
+                .Replace("*", string.Empty)
+                .Replace("/", string.Empty)
+                .Replace("#", string.Empty)
+                .Replace("(", string.Empty)
+                .Replace(")", string.Empty)
+                .Replace(".", string.Empty);
+
+            if (clearString.Length != 0)
+            {
+                isValid = false;
+            }
+
             if (isValid)
             {
                 prevInput = text;
             }
 
             mainInput.text = prevInput;
+            fakeInputFieldButtonText.text = prevInput.Replace(requiredFunctions[0], "<color=#E12F0BFF>" + requiredFunctions[0] + "</color>");
         }
     }
 }

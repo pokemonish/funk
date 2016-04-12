@@ -90,18 +90,18 @@ public class LevelCreator : MonoBehaviour {
         var inputFieldCo = inputFieldGo.GetComponent<InputField>();
 
     
-        string[] args = new string[1] { "<color=#E12F0BFF>" + funk + "</color>" };
+        string[] args = new string[1] { funk};
 
         inputVerifyer.setReqiredFunctions(args);
 
-        inputFieldCo.keyboardType = TouchScreenKeyboardType.NumbersAndPunctuation;
+        inputFieldCo.keyboardType = TouchScreenKeyboardType.PhonePad;
         //inputFieldCo.text = "<color=red>" + level.Funk + "</color>";
 
         //inputFieldCo.text = "<size=30><color=red>" + level.Funk + "</color></size>";
 
         //inputFieldCo.text = level.DefaultFunk;
 
-        var coloredText = level.DefaultFunk.Replace(funk, "<color=#E12F0BFF>" + funk + "</color> ");
+        var coloredText = level.DefaultFunk.Replace(funk, funk);
         Debug.Log(coloredText);
 
         inputVerifyer.setPrevInput(coloredText);
