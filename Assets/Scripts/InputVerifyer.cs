@@ -245,7 +245,8 @@ public class InputVerifyer : MonoBehaviour {
                 .Replace("#", string.Empty)
                 .Replace("(", string.Empty)
                 .Replace(")", string.Empty)
-                .Replace(".", string.Empty);
+                .Replace(".", string.Empty)
+                .Replace("^", string.Empty);
 
             if (clearString.Length != 0)
             {
