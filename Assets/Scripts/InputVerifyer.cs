@@ -11,18 +11,31 @@ public class InputVerifyer : MonoBehaviour {
     private Button fakeInputFieldButton;
     private Text fakeInputFieldButtonText;
     private string prevInput = null;
-    private string[] requiredFunctions;
+    private string[] requiredFunctions = {};
     private int prevPos = 0;
 
     // Use this for initialization
     void Start()
     {
-        var fakeInputFieldButtonGO = GameObject.Find("FakeInputFieldButton");
-        fakeInputFieldButton = fakeInputFieldButtonGO.GetComponent<Button>();
-        fakeInputFieldButtonText = fakeInputFieldButton.GetComponentInChildren<Text>();
         var mainInputGO = GameObject.Find("InputField");
         mainInput = mainInputGO.GetComponent<InputField>();
-        fakeInputFieldButtonText.text = mainInput.text.Replace(requiredFunctions[0], "<color=#E12F0BFF>" + requiredFunctions[0] + "</color>");
+        var fakeInputFieldButtonGO = GameObject.Find("FakeInputFieldButton");
+
+        if (ScenesParameters.Devmode)
+        {
+            var fakeInputField = GameObject.Find("FakeInputField");
+            var fakeInputFieldImage = fakeInputField.GetComponentInChildren<Image>();
+            fakeInputFieldImage.enabled = false;
+            var fakeIputFieldImageGO = GameObject.Find("FakeInputFieldImage");
+            fakeIputFieldImageGO.SetActive(false);
+            fakeInputFieldButtonGO.SetActive(false);
+        }
+        else
+        {
+            fakeInputFieldButton = fakeInputFieldButtonGO.GetComponent<Button>();
+            fakeInputFieldButtonText = fakeInputFieldButton.GetComponentInChildren<Text>();
+            fakeInputFieldButtonText.text = mainInput.text.Replace(requiredFunctions[0], "<color=#E12F0BFF>" + requiredFunctions[0] + "</color>");
+        }
     }
 
     // Update is called once per frame
@@ -245,7 +258,10 @@ public class InputVerifyer : MonoBehaviour {
             }
 
             mainInput.text = prevInput;
-            fakeInputFieldButtonText.text = prevInput.Replace(requiredFunctions[0], "<color=#E12F0BFF>" + requiredFunctions[0] + "</color>");
+            if (!ScenesParameters.Devmode)
+            {
+                fakeInputFieldButtonText.text = prevInput.Replace(requiredFunctions[0], "<color=#E12F0BFF>" + requiredFunctions[0] + "</color>");
+            }
         }
     }
 }
