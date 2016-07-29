@@ -1,7 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Saver : MonoBehaviour {
+public class Saver : MonoBehaviour
+{
+
+    private static string sawTraining = "saw_training";
 
     private static string getLevelName(int num = -1)
     {
@@ -51,4 +54,13 @@ public class Saver : MonoBehaviour {
         return num == 1 || getLevelComplete(num - 1);
     }
 
+    public static void dontShowTraining()
+    {
+        PlayerPrefs.SetInt(sawTraining, 1);
+    }
+
+    public static int hasShownTraining()
+    {
+        return PlayerPrefs.GetInt(sawTraining, 0);
+    }
 }

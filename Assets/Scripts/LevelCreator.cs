@@ -10,6 +10,7 @@ public class LevelCreator : MonoBehaviour {
     public GameObject MyBasket;
     public GameObject MyTriangle;
     public GameObject ErrorText;
+    public GameObject Tips;
 
     public InputVerifyer inputVerifyer;
 	[SerializeField]
@@ -45,6 +46,12 @@ public class LevelCreator : MonoBehaviour {
             {
                 throw new Exception("Entering devmode through GameScreen is obsolete, use SectionsMenu Instead.");
             }
+        }
+
+        Debug.Log("has Shown " + Saver.hasShownTraining() + "\n");
+        if (Saver.hasShownTraining() != 1)
+        {
+            Tips.SetActive(true);
         }
     }
 
