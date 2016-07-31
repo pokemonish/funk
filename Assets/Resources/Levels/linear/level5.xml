@@ -1,0 +1,1 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><Funk>x</Funk><DefaultFunk>x</DefaultFunk><Hint>x+0.45</Hint><Ball><x>1</x><y>2</y><scale>0.7</scale></Ball><Basket><x>-2</x><y>-1</y><scale>0.45</scale><angle>0</angle></Basket></Level>
