@@ -19,12 +19,8 @@ public class StarScoreText : MonoBehaviour {
     }
 
 	void Update () {
-		
-		if (AddStar && Yes) {
-			AddStar.gameObject.SetActive (!Shop.CanBuyHint ());
-			Yes.gameObject.SetActive (Shop.CanBuyHint ());
-		}
 	}
+
 	public void AddHint(){
 		if (Shop.BuyHint()) {
             //hintText.text = hintText.text.Replace ("{}", ScenesParameters.trueFunction);

@@ -35,12 +35,9 @@ class Shop
 			return false;
 		}
 	}
-	public static bool CanBuyHint(){
-		if (StarScore >= 10) {
-			return true;
-		} else {
-			return false;
-		}
+	public static bool CanBuyHint()
+	{
+	    return StarScore >= 10;
 	}
 
 
