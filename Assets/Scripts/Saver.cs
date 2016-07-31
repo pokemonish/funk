@@ -5,6 +5,7 @@ public class Saver : MonoBehaviour
 {
 
     private static string sawTraining = "saw_training";
+    private static string hintSave = "hint_";
 
     private static string getLevelName(int num = -1)
     {
@@ -62,5 +63,23 @@ public class Saver : MonoBehaviour
     public static int hasShownTraining()
     {
         return PlayerPrefs.GetInt(sawTraining, 0);
+    }
+
+    private static string getHintString()
+    {
+        return hintSave + ScenesParameters.Section + '_' + ScenesParameters.CurrentLevel;
+    }
+
+    public static void saveHint()
+    {
+        if (isHintBought() != 1)
+        {
+            PlayerPrefs.SetInt(getHintString(), 1);
+        }
+    }
+
+    public static int isHintBought()
+    {
+        return PlayerPrefs.GetInt(getHintString(), 0);
     }
 }

@@ -6,7 +6,23 @@ using System.IO;
 
 public class SectionsUp : MonoBehaviour {
 
-	public void SelectSection(string sectionName){
+    void Start()
+    {
+        LanguageManager.setText("LinearText", LanguageManager.getLanguage().linear);
+        LanguageManager.setText("PowerText", LanguageManager.getLanguage().power);
+        LanguageManager.setText("RootText", LanguageManager.getLanguage().root);
+        LanguageManager.setText("LogarithmText", LanguageManager.getLanguage().logarithm);
+        LanguageManager.setText("ExponentalText", LanguageManager.getLanguage().exponental);
+        LanguageManager.setText("TrigonometricText", LanguageManager.getLanguage().trigonometric);
+        LanguageManager.setText("PolinomialText", LanguageManager.getLanguage().polinomial);
+        LanguageManager.setText("HyperbolicText", LanguageManager.getLanguage().hyperbolic);
+        LanguageManager.setText("MixedText", LanguageManager.getLanguage().mixed);
+        LanguageManager.setText("SpecialText", LanguageManager.getLanguage().special);
+        LanguageManager.setText("BottomMenuButtonText", LanguageManager.getLanguage().main_screen);
+
+    }
+
+    public void SelectSection(string sectionName){
 		
 		ScenesParameters.Section = sectionName;
 		TextAsset text = Resources.Load(ScenesParameters.LevelsDirectory + '/'

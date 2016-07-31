@@ -44,6 +44,19 @@ public static class ScenesParameters {
         }
     }
 
+    private static string languagesDirectory = "Languages";
+    public static string LanguagesDirectory
+    {
+        get
+        {
+            return languagesDirectory;
+        }
+        set
+        {
+            languagesDirectory = value;
+        }
+    }
+
     private static int currentLevel;
     public static int CurrentLevel
     {

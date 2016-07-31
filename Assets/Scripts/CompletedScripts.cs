@@ -3,6 +3,12 @@ using System.Collections;
 
 public class CompletedScripts : MonoBehaviour {
 
+    public void Start()
+    {
+        LanguageManager.setText("Text_Completed", LanguageManager.getLanguage().completed);
+        LanguageManager.setText("StarCountText", "+" + Shop.levelAward + " " + LanguageManager.getLanguage().stars);
+    }
+
     public void replay()
     {
         CompletedScreen.getInstanse().SetActive(false);

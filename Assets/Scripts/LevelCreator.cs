@@ -35,9 +35,16 @@ public class LevelCreator : MonoBehaviour {
 
         ScenesParameters.isValid = true;
 
+        setLanguage();
+
         if (!ScenesParameters.Devmode)
         {
             createLevelFromXml(ScenesParameters.LevelName + ScenesParameters.CurrentLevel);
+
+            if (Saver.hasShownTraining() != 1)
+            {
+                Tips.SetActive(true);
+            }
         } else
         {
             devInterface = Instantiate(devInterface);
@@ -47,12 +54,18 @@ public class LevelCreator : MonoBehaviour {
                 throw new Exception("Entering devmode through GameScreen is obsolete, use SectionsMenu Instead.");
             }
         }
+    }
 
-        Debug.Log("has Shown " + Saver.hasShownTraining() + "\n");
-        if (Saver.hasShownTraining() != 1)
-        {
-            Tips.SetActive(true);
-        }
+    private void setLanguage()
+    {
+        //main elements
+        LanguageManager.setText("BottomMenuButtonText", LanguageManager.getLanguage().sections_menu);
+        LanguageManager.setText("RunButtonText", LanguageManager.getLanguage().run);
+        LanguageManager.setText("ResetButtonText", LanguageManager.getLanguage().reset);
+
+        //buy stars
+        LanguageManager.setText("ResetButtonText", LanguageManager.getLanguage().reset);
+
     }
 
     private void createLevelFromXml(string filename)

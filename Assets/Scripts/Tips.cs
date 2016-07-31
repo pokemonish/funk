@@ -52,14 +52,14 @@ public class Tips : MonoBehaviour {
 
                 Debug.Log("Waiting is over\n");
 
-                tips_obj[i - 1].transform.FindChild("TapImage").gameObject.SetActive(true);
+                tips_obj[i - 1].transform.FindChild("FrameImage").FindChild("TapImage").gameObject.SetActive(true);
             }
 
             yield return null;
         }
     }
 	
-	void Update ()
+	/*void Update ()
 	{
 		if (tips [1])
 		{
@@ -86,5 +86,5 @@ public class Tips : MonoBehaviour {
 
     public void tips3(){
 		if(tips[2]) tips_obj [2].SetActive (false);			
-    }
+    }*/
 }

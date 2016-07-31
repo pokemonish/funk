@@ -11,8 +11,15 @@ public class StarScoreText : MonoBehaviour {
 	public Text hintText;
 	public GameObject hintWindow;
 
+    void Start()
+    {
+        ScoreStartText.text = Shop.StarScore.ToString();
+
+        LanguageManager.setText("ThanksText", LanguageManager.getLanguage().thanks);
+    }
+
 	void Update () {
-		ScoreStartText.text = Shop.StarScore.ToString ();
+		
 		if (AddStar && Yes) {
 			AddStar.gameObject.SetActive (!Shop.CanBuyHint ());
 			Yes.gameObject.SetActive (Shop.CanBuyHint ());
@@ -20,8 +27,11 @@ public class StarScoreText : MonoBehaviour {
 	}
 	public void AddHint(){
 		if (Shop.BuyHint()) {
-			hintText.text = hintText.text.Replace ("{}", ScenesParameters.trueFunction);
-			hintWindow.SetActive (true);
-		}
+            //hintText.text = hintText.text.Replace ("{}", ScenesParameters.trueFunction);
+		    hintText.text = ScenesParameters.trueFunction;
+            hintWindow.SetActive (true);
+            Saver.saveHint();
+            ScoreStartText.text = Shop.StarScore.ToString();
+        }
 	}
 }

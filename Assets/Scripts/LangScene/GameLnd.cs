@@ -6,7 +6,7 @@ using System.IO;
 
 public class GameLnd : MonoBehaviour {
 
-	public Text Run;
+/*	public Text Run;
 	public Text Menu;
 	public Text Reset;
 	public Text Yes;
@@ -48,5 +48,5 @@ public class GameLnd : MonoBehaviour {
 		System.IO.StringReader stringReader = new System.IO.StringReader(textAsset.text);
 		System.Xml.XmlReader reader = System.Xml.XmlReader.Create(stringReader);
 		return (GameScene)serializer.Deserialize (reader);
-	}
+	}*/
 }
