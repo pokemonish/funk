@@ -6,13 +6,15 @@ using System;
 public class Tips : MonoBehaviour {
 
 	[SerializeField]
-	private bool[] tips;
-	[SerializeField]
 	private GameObject [] tips_obj;
 	[SerializeField]
 	private Text text;
 	[SerializeField]
 	string [] ar;
+
+    public GameObject tipsMain;
+    public GameObject [] tipTexts;
+    public GameObject [] tapTexts;
 
 	// Use this for initialization
 	void Start ()
@@ -23,6 +25,9 @@ public class Tips : MonoBehaviour {
 
     IEnumerator TipsAnimation()
     {
+        //bad practie
+        var type = typeof(Language);
+
         int i = 0;
 
         bool firstIteration = true;
@@ -40,19 +45,27 @@ public class Tips : MonoBehaviour {
 
                 if (i == tips_obj.Length)
                 {
-                    if (Saver.hasShownTraining() != 1) Saver.dontShowTraining(); 
+                    if (Saver.hasShownTraining() != 1) Saver.dontShowTraining();
+                    tipsMain.SetActive(false);
                     yield break;
                 }
 
                 tips_obj[i].SetActive(true);
 
+                Debug.Log("tip text " + type.GetField("tip" + (i + 1)).GetValue(LanguageManager.getLanguage()).ToString());
+                Debug.Log("tip1 " + LanguageManager.getLanguage().tip1);
+
+                //bad practice
+                LanguageManager.setText(tipTexts[i], type.GetField("tip" + (i + 1)).GetValue(LanguageManager.getLanguage()).ToString());
+                LanguageManager.setText(tapTexts[i], LanguageManager.getLanguage().tap_to_continue);
+
                 ++i;
 
-                yield return new WaitForSeconds(5);
+                yield return new WaitForSeconds(4);
 
                 Debug.Log("Waiting is over\n");
 
-                tips_obj[i - 1].transform.FindChild("FrameImage").FindChild("TapImage").gameObject.SetActive(true);
+                tips_obj[i - 1].transform.FindChild("TapImage").gameObject.SetActive(true);
             }
 
             yield return null;

@@ -6,8 +6,6 @@ using System.IO;
 public class StarScoreText : MonoBehaviour {
 
 	public Text ScoreStartText;
-	public Button Yes;
-	public Button AddStar;
 	public Text hintText;
 	public GameObject hintWindow;
 

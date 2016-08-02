@@ -142,8 +142,6 @@ public class LevelCreator : MonoBehaviour {
 
         var button = GameObject.Find("RunButton");
         button.GetComponent<Button>().onClick.Invoke();
-		if (levelsNumber == 0 && funk == "2")
-			tips.SetActive (true);		
 
 		ScenesParameters.trueFunction = level.HintText;
     }

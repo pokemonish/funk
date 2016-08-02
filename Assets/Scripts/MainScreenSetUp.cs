@@ -19,10 +19,6 @@ public class MainScreenSetUp : MonoBehaviour
         LanguageManager.setText(OptionsButtonText, LanguageManager.getLanguage().options);
         LanguageManager.setText(ShopButtonText, LanguageManager.getLanguage().shop);
         LanguageManager.setText(LogoImageText, LanguageManager.getLanguage().developer);
-
-        //LanguageManager.createRussian();
-        //LanguageManager.createEnglish();
-        //LanguageCreatorMeta.transportFromDataToResources();
     }
 	
 	// Update is called once per frame

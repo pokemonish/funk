@@ -8,7 +8,7 @@ using System.Xml.Serialization;
 using System.Xml;
 
 
-public class LanguageCreatorMeta
+public class LanguageCreatorMeta : MonoBehaviour
 {
     public static void saveXmlLanguageFile(Language language, string name)
     {
@@ -34,7 +34,7 @@ public class LanguageCreatorMeta
                                            "Resources" + Path.DirectorySeparatorChar +
                                            ScenesParameters.LanguagesDirectory + Path.DirectorySeparatorChar +
                                            Path.DirectorySeparatorChar
-                                           + name + ".bin");
+                                           + name + ".bytes");
 
         var file = File.Open(serializationFile, FileMode.OpenOrCreate);
         BinaryFormatter binaryFormatter = new BinaryFormatter();
