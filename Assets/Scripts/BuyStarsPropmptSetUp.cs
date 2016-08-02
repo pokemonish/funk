@@ -10,16 +10,17 @@ public class BuyStarsPropmptSetUp : MonoBehaviour {
     // Use this for initialization
     void Start () {
         LanguageManager.setText("PromptText", LanguageManager.getLanguage().buy_stars_prompt);
-        LanguageManager.setText("YesButtonText", LanguageManager.getLanguage().yes);
         LanguageManager.setText("NoButtonText", LanguageManager.getLanguage().no);
 
         if (Shop.CanBuyHint())
         {
             Yes.gameObject.SetActive(true);
+            LanguageManager.setText("YesButtonText", LanguageManager.getLanguage().yes);
         }
         else
         {
             //AddStar.gameObject.SetActive (true);
+            //LanguageManager.setText("AddStarsButtonText", LanguageManager.getLanguage().add);
         }
     }
 	

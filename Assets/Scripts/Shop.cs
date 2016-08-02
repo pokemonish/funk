@@ -5,6 +5,8 @@ class Shop
 {
 
     public static int levelAward = 5;
+    public static int ballPrice = 20;
+    public static int hintPrice = 10;
 
 	private static int starScore{ get; set; }
 	public static int StarScore{ 
@@ -20,7 +22,7 @@ class Shop
 
 	public static bool Buy(string name){
 		if (10 <= StarScore) {
-			StarScore = StarScore - 10;
+			StarScore = StarScore - ballPrice;
 			PlayerPrefs.SetString (name, "Buyed");
 			return true;
 		} else {
@@ -29,7 +31,7 @@ class Shop
 	}
 	public static bool BuyHint(){
 		if (StarScore>= 0) {
-			StarScore = StarScore - 10;
+			StarScore = StarScore - hintPrice;
 			return true;
 		} else {
 			return false;
@@ -37,7 +39,7 @@ class Shop
 	}
 	public static bool CanBuyHint()
 	{
-	    return StarScore >= 10;
+	    return StarScore >= hintPrice;
 	}
 
 

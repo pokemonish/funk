@@ -11,13 +11,12 @@ public class StarScoreText : MonoBehaviour {
 
     void Start()
     {
-        ScoreStartText.text = Shop.StarScore.ToString();
-
         LanguageManager.setText("ThanksText", LanguageManager.getLanguage().thanks);
     }
 
 	void Update () {
-	}
+        ScoreStartText.text = Shop.StarScore.ToString();
+    }
 
 	public void AddHint(){
 		if (Shop.BuyHint()) {
