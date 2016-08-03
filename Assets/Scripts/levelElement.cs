@@ -20,7 +20,15 @@ public class levelElement : MonoBehaviour {
 		}
 	}
 	public void SetLevelIndex(int index){
-		Index = index;
-		infa.text = index.ToString ();
+	    if (Saver.isLevelPlayable(index))
+	    {
+            Index = index;
+            infa.text = index.ToString();
+        }
+	    else
+	    {
+	        infa.gameObject.SetActive(false);
+	    }
+        
 	}
 }
