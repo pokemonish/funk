@@ -21,7 +21,7 @@ class Shop
 	}
 
 	public static bool Buy(string name){
-		if (10 <= StarScore) {
+		if (StarScore >= ballPrice) {
 			StarScore = StarScore - ballPrice;
 			PlayerPrefs.SetString (name, "Buyed");
 			return true;

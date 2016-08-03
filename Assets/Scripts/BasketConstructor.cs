@@ -6,6 +6,7 @@ public class BasketConstructor : MonoBehaviour {
 
     public Camera cam;
 
+    public GameObject bottomProtection;
     public GameObject bottom;
     public GameObject leftWall;
     public GameObject rightWall;
@@ -21,8 +22,12 @@ public class BasketConstructor : MonoBehaviour {
                                         renderer.sprite.bounds.size.y);
         
         var bottomCollider = (BoxCollider2D)bottom.GetComponent<BoxCollider2D>();
-        bottomCollider.size = new Vector2(backetSize.x * 0.7f, standartWallThickness);
-        bottomCollider.offset = new Vector2(0f, (backetSize.y / 2 - standartWallThickness) *-1);
+        bottomCollider.size = new Vector2(backetSize.x * 0.7f, standartWallThickness / 2);
+        bottomCollider.offset = new Vector2(0f, (backetSize.y / 2 - standartWallThickness) * -1);
+
+        var bottomProtectionCollider = (BoxCollider2D) bottomProtection.GetComponent<BoxCollider2D>();
+        bottomProtectionCollider.size = new Vector2(backetSize.x * 0.72f, standartWallThickness / 2);
+        bottomProtectionCollider.offset = new Vector2(0f, (backetSize.y / 2 - standartWallThickness / 2) * -1);
 
         var leftCollider = (BoxCollider2D)leftWall.GetComponent<BoxCollider2D>();
         var rightCollider = (BoxCollider2D)rightWall.GetComponent<BoxCollider2D>();
