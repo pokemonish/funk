@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: b93c0f7d443dead4cb3ccf17e5ad24f0
+timeCreated: 1470226775
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - LevelElementPrefab: {fileID: 11432512, guid: e7b4315ade2a7f24eb1c9a44845c0212,
+      type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
