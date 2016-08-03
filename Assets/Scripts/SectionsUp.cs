@@ -20,6 +20,11 @@ public class SectionsUp : MonoBehaviour {
         LanguageManager.setText("SpecialText", LanguageManager.getLanguage().special);
         LanguageManager.setText("BottomMenuButtonText", LanguageManager.getLanguage().main_screen);
 
+        GameObject[] objs = GameObject.FindGameObjectsWithTag("ComingSoon");
+        foreach (GameObject obj in objs)
+        {
+            LanguageManager.setText(obj, LanguageManager.getLanguage().coming_soon);
+        }
     }
 
     public void SelectSection(string sectionName){

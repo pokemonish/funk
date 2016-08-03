@@ -18,7 +18,7 @@ public class Language
     public string play;
     public string developer;
 
-    //scenes screen
+    //sections screen
     public string main_screen;
     public string linear;
     public string power;
@@ -30,6 +30,7 @@ public class Language
     public string hyperbolic;
     public string mixed;
     public string special;
+    public string coming_soon;
 
     //game screen
     public string reset;
