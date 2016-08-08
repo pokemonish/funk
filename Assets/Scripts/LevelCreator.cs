@@ -10,7 +10,11 @@ public class LevelCreator : MonoBehaviour {
     public GameObject MyBasket;
     public GameObject MyTriangle;
     public GameObject ErrorText;
+    public GameObject Tips;
+
     public InputVerifyer inputVerifyer;
+	[SerializeField]
+	private GameObject tips;
 
     public float xDef;
     public float yDef;
@@ -20,19 +24,27 @@ public class LevelCreator : MonoBehaviour {
     private GameObject ballClone;
     private GameObject basketClone;
     private GameObject brickClone;
-    private string funk;
+	private string funk;
     private string defaultFunk;
 
-    private int levelsNumber;
+
+	private int levelsNumber;
 
     // Use this for initialization
     void Start () {
 
         ScenesParameters.isValid = true;
 
+        setLanguage();
+
         if (!ScenesParameters.Devmode)
         {
             createLevelFromXml(ScenesParameters.LevelName + ScenesParameters.CurrentLevel);
+
+            if (Saver.hasShownTraining() != 1)
+            {
+                Tips.SetActive(true);
+            }
         } else
         {
             devInterface = Instantiate(devInterface);
@@ -44,15 +56,32 @@ public class LevelCreator : MonoBehaviour {
         }
     }
 
-    private void createLevelFromXml(string filename)
+    private void setLanguage()
     {
+        //main elements
+        LanguageManager.setText("BottomMenuButtonText", LanguageManager.getLanguage().sections_menu);
+        LanguageManager.setText("RunButtonText", LanguageManager.getLanguage().run);
+        LanguageManager.setText("ResetButtonText", LanguageManager.getLanguage().reset);
+
+        //buy stars
+        LanguageManager.setText("ResetButtonText", LanguageManager.getLanguage().reset);
+
+    }
+
+    private void createLevelFromXml(string filename)
+    {		
+        Camera cam = Camera.main;
+
         var parser = new XMLParser();
 
         var level = (Level)parser.parse(filename);
 
         if (level.ball != null)
         {
-            var ballPosition = new Vector3(level.ball.x, level.ball.y, 0f);
+
+            var ballPosition = new Vector3( level.ball.x, level.ball.y, 0f);
+
+            
             
             ballClone = (GameObject)Instantiate(MyBall, ballPosition, Quaternion.Euler(0, 0, 0));
 
@@ -93,6 +122,7 @@ public class LevelCreator : MonoBehaviour {
         string[] args = new string[1] { funk};
 
         inputVerifyer.setReqiredFunctions(args);
+        inputVerifyer.setDefaultFunction(defaultFunk);
 
         inputFieldCo.keyboardType = TouchScreenKeyboardType.PhonePad;
         //inputFieldCo.text = "<color=red>" + level.Funk + "</color>";
@@ -112,6 +142,8 @@ public class LevelCreator : MonoBehaviour {
 
         var button = GameObject.Find("RunButton");
         button.GetComponent<Button>().onClick.Invoke();
+
+		ScenesParameters.trueFunction = level.HintText;
     }
 
     public void resetField()
@@ -157,5 +189,7 @@ public void setPosition()
     // Update is called once per frame
     void Update () {
 	
+
 	}
+
 }

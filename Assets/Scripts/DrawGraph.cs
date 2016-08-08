@@ -16,7 +16,6 @@ public class DrawGraph : MonoBehaviour
 
     private ExpressionParser.ExpressionParser parser;
     private Camera cam;
-    private float minSide, from, to, step, standartLineThickness;
     private Transform DotPrefab;
 
     List<BoxCollider2D> graphDots = new List<BoxCollider2D>();
@@ -30,16 +29,7 @@ public class DrawGraph : MonoBehaviour
         inputFieldCo = inputFieldGo.GetComponent<InputField>();
 
         parser = new ExpressionParser.ExpressionParser();
-        minSide = (Screen.width < Screen.height ? Screen.width : Screen.height) * 2f;
-        cam = GameObject.Find("Camera").GetComponent<Camera>();
-
-        var scaledSide = cam.ScreenToWorldPoint(new Vector3(minSide / 7200, 0f, 0f)).x;
-
-        standartLineThickness = scaledSide < 0.1f ? 0.1f : scaledSide;
-        step = standartLineThickness * 2;
-
-        from = cam.ScreenToWorldPoint(new Vector3(0f, 0f, 0f)).x - step;
-        to = cam.ScreenToWorldPoint(new Vector3(minSide / 2, 0f, 0f)).x + step;
+       
     }
 
     private LineRenderer createLine()
@@ -101,7 +91,7 @@ public class DrawGraph : MonoBehaviour
         colliderKeeper.transform.rotation = Quaternion.Euler(0f, 0f, rot_z - 90);
 
         BoxCollider2D bc = colliderKeeper.AddComponent<BoxCollider2D>();
-        bc.size = new Vector2(standartLineThickness, Vector2.Distance(lastDotPosition, newDotPosition));
+        bc.size = new Vector2(0.06f,Mathf.Abs((float)x - (float)prevX));
 
         graphDots.Add(bc);
     }
@@ -113,36 +103,24 @@ public class DrawGraph : MonoBehaviour
 
         foreach (BoxCollider2D dot in graphDots)
         {
-            Destroy(dot);
+            Destroy(dot.gameObject);
         }
         graphDots.Clear();
-
-        double w = Math.Abs(to - from);
-        double sw = cam.ScreenToWorldPoint(new Vector3(Screen.width, 0f, 0f)).x;
-        double xPrev = from + sw - 10 * w / 20;
-
         if (fun != null)
         {
-            double yPrev = fun(-10) / 20 * w;
+            double PrevX = -6;
+            double PrevY = fun(-6);
+            bool In = false;
+            
 
-            for (double x = -10 + step; x < 10; x += step)
+            for (int i = -35; i <= 36; i++)
             {
-                double ty = fun(x) / 20 * w;
-                double tx = from + sw + x * w / 20;
-                if (Math.Abs(ty) < w / 2 && Math.Abs(yPrev) < w / 2 && goodNumbers(tx, ty, xPrev, yPrev))
-                    buildSegment(tx, ty, xPrev, yPrev);
-                xPrev = tx;
-                yPrev = ty;
-            }
-        }
-        else
-        {
-            for (double x = -10 + step; x < 10; x += step)
-            {
-                double tx = from + sw + x * w / 20;
-                if (goodNumbers(tx, xPrev))
-                    buildSegment(tx, 0, xPrev, 0);
-                xPrev = tx;
+                double x = (float)i / 5;
+                double y = fun(x);
+                if (y < 6 && y > -6 && PrevY < 6&&PrevY>-6) buildSegment(x, y, PrevX,PrevY);
+                    PrevX = x;
+                    PrevY = y;
+                
             }
         }
     }
@@ -151,7 +129,7 @@ public class DrawGraph : MonoBehaviour
     {
         foreach (LineRenderer line in lines)
         {
-            Destroy(line);
+            Destroy(line.gameObject);
         }
 
         lines.Clear();

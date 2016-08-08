@@ -1,5 +1,7 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
+using System.Text;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Text.RegularExpressions;
@@ -12,6 +14,7 @@ public class InputVerifyer : MonoBehaviour {
     private Text fakeInputFieldButtonText;
     private string prevInput = null;
     private string[] requiredFunctions = {};
+    private string[] allowedFunctions = { };
     private int prevPos = 0;
 
     // Use this for initialization
@@ -214,9 +217,53 @@ public class InputVerifyer : MonoBehaviour {
         requiredFunctions = functions;
     }
 
+    public void setDefaultFunction(string function)
+    {
+        function = Regex.Replace(function, @"[\d-]", string.Empty)
+                .Replace("+", " ")
+                .Replace("-", " ")
+                .Replace("*", " ")
+                .Replace("/", " ")
+                .Replace("#", " ")
+                .Replace("(", " ")
+                .Replace(")", " ")
+                .Replace(".", " ")
+                .Replace("^", " ");
+
+        RegexOptions options = RegexOptions.None;
+        Regex regex = new Regex("[ ]{2,}", options);
+        function = regex.Replace(function, " ");
+
+        Debug.Log("allowed string" + function + "1\n");
+
+        var temp = function.Split(' ');
+
+        int allowedLength = 0;
+
+        foreach (var VARIABLE in temp)
+        {
+            if (VARIABLE != String.Empty) ++allowedLength;
+        }
+
+        allowedFunctions = new String[allowedLength];
+        int i = 0;
+
+        Debug.Log("\nAllowed functions are "  + '\n');
+        foreach (var VARIABLE in temp)
+        {
+            if (VARIABLE != String.Empty)
+            {
+                allowedFunctions[i] = VARIABLE;
+                ++i;
+                Debug.Log(VARIABLE + "\n");
+            }
+            
+        }
+    }
+
     public void verifyInput()
     {
-        if (mainInput != null)
+        if (mainInput != null && !ScenesParameters.Devmode)
         {
             var text = mainInput.text;
 
@@ -248,6 +295,11 @@ public class InputVerifyer : MonoBehaviour {
                 .Replace(".", string.Empty)
                 .Replace("^", string.Empty);
 
+            foreach (string VARIABLE in allowedFunctions)
+            {
+                clearString = clearString.Replace(VARIABLE, String.Empty);
+            }
+
             if (clearString.Length != 0)
             {
                 isValid = false;
@@ -259,10 +311,8 @@ public class InputVerifyer : MonoBehaviour {
             }
 
             mainInput.text = prevInput;
-            if (!ScenesParameters.Devmode)
-            {
-                fakeInputFieldButtonText.text = prevInput.Replace(requiredFunctions[0], "<color=#E12F0BFF>" + requiredFunctions[0] + "</color>");
-            }
+
+            fakeInputFieldButtonText.text = prevInput.Replace(requiredFunctions[0], "<color=#E12F0BFF>" + requiredFunctions[0] + "</color>");
         }
     }
 }

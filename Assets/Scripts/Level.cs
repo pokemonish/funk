@@ -8,7 +8,7 @@ public class Level {
     
     public Level() {}
 
-    public Level(GameObject _ball, GameObject _basket, GameObject _obsticle, string funk, string defFunk)
+	public Level(GameObject _ball, GameObject _basket, GameObject _obsticle, string funk, string defFunk,string hint)
     {
         ball = new Ball(_ball.transform.position.x,
                         _ball.transform.position.y,
@@ -30,14 +30,18 @@ public class Level {
 
         this.Funk = funk;
         this.DefaultFunk = defFunk;
+		this.HintText = hint;
     }
 
-    public Level(Ball ball, Basket basket, ObsticleBrick ObsticleTriangle, string funk, string defFunk) {
+
+
+	public Level(Ball ball, Basket basket, ObsticleBrick ObsticleTriangle, string funk, string defFunk,string hint) {
         this.ball = ball;
         this.basket = basket;
         this.ObsticleBrick = ObsticleTriangle;
         this.Funk = funk;
         this.DefaultFunk = defFunk;
+		this.HintText = hint;
     }
 
     [XmlElement("Funk")]
@@ -45,6 +49,9 @@ public class Level {
 
     [XmlElement("DefaultFunk")]
     public string DefaultFunk { get; set; }
+
+	[XmlElement("Hint")]
+	public string HintText{ get; set;}
 
     [XmlElement("Ball")]
     public Ball ball { get; set; }
@@ -54,6 +61,8 @@ public class Level {
 
     [XmlElement("TriangleObsticle")]
     public ObsticleBrick ObsticleBrick { get; set; }
+
+
 
     public IEnumerator GetEnumerator()
     {

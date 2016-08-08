@@ -5,8 +5,6 @@ public class DeleteAll : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        PlayerPrefs.DeleteAll();
-
         ScenesParameters.Devmode = false;
         Screen.orientation = ScreenOrientation.Portrait;
     }

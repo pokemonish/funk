@@ -6,11 +6,12 @@ public class BasketConstructor : MonoBehaviour {
 
     public Camera cam;
 
+    public GameObject bottomProtection;
     public GameObject bottom;
     public GameObject leftWall;
     public GameObject rightWall;
 
-    private const float standartWallThickness = 0.15f;
+    public const float standartWallThickness = 0.15f;
     private const double sidesAngle = 0.262;
 
     // Use this for initialization
@@ -19,10 +20,10 @@ public class BasketConstructor : MonoBehaviour {
  
         var backetSize = new Vector2 (renderer.sprite.bounds.size.x, 
                                         renderer.sprite.bounds.size.y);
-        
+
         var bottomCollider = (BoxCollider2D)bottom.GetComponent<BoxCollider2D>();
         bottomCollider.size = new Vector2(backetSize.x * 0.7f, standartWallThickness);
-        bottomCollider.offset = new Vector2(0f, (backetSize.y / 2 - standartWallThickness) *-1);
+        bottomCollider.offset = new Vector2(0f, (backetSize.y / 2 - standartWallThickness / 4 * 3) * -1);
 
         var leftCollider = (BoxCollider2D)leftWall.GetComponent<BoxCollider2D>();
         var rightCollider = (BoxCollider2D)rightWall.GetComponent<BoxCollider2D>();

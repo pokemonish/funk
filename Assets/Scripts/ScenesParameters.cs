@@ -44,6 +44,19 @@ public static class ScenesParameters {
         }
     }
 
+    private static string languagesDirectory = "Languages";
+    public static string LanguagesDirectory
+    {
+        get
+        {
+            return languagesDirectory;
+        }
+        set
+        {
+            languagesDirectory = value;
+        }
+    }
+
     private static int currentLevel;
     public static int CurrentLevel
     {
@@ -82,4 +95,24 @@ public static class ScenesParameters {
             section = value;
         }
     }
+	private static int previouSceneIndex;
+	public static int PreviousSceneIndex
+	{
+		get { 
+			return previouSceneIndex;
+		}	
+		set { 
+			previouSceneIndex = value;
+		}
+	}
+
+	private static string TrueFunction;
+	public static string trueFunction{
+		get{ 
+			return TrueFunction;
+		}
+		set{ 
+			TrueFunction = value;
+		}
+	}
 }
